@@ -1,12 +1,12 @@
 package com.example.student_mangement.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
-@Getter
 public class StudentRequestDto {
     private String username;
     private String studentName;

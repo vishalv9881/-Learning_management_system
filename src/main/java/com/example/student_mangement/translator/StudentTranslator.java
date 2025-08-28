@@ -24,6 +24,7 @@ public class StudentTranslator {
         logger.info("=== TRANSLATOR: Converting DTO to Entity ===");
 
         Student student = new Student();
+        student.setUsername(studentRequestDto.getUsername()); // ✅ Added
         student.setStudentName(studentRequestDto.getStudentName());
         student.setStudentGender(studentRequestDto.getStudentGender());
         student.setEmail(studentRequestDto.getEmail());
@@ -35,6 +36,7 @@ public class StudentTranslator {
 
         return student;
     }
+
 
     public StudentResponseDto translateToStudentResponseDto(Student student) {
         StudentResponseDto studentResponseDto = new StudentResponseDto();

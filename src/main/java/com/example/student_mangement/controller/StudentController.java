@@ -1,36 +1,47 @@
 package com.example.student_mangement.controller;
 
+import com.example.student_mangement.dto.CourseResponseDto;
 import com.example.student_mangement.dto.StudentRequestDto;
 import com.example.student_mangement.service.StudentService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/students")
 public class StudentController {
 
-    private static final Logger logger = LoggerFactory.getLogger(StudentController.class);
+    private final StudentService studentService;
 
     @Autowired
-    private StudentService studentService;
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
+    }
 
     @PostMapping("/register")
     public ResponseEntity<String> registerStudent(@RequestBody StudentRequestDto studentRequestDto) {
-        logger.info("=== REGISTRATION REQUEST RECEIVED ===");
-        logger.info("Student Name: {}", studentRequestDto.getStudentName());
-        logger.info("Student Email: {}", studentRequestDto.getEmail());
-        logger.info("Student Gender: {}", studentRequestDto.getStudentGender());
+        System.out.println("Received DTO: " + studentRequestDto);  // 👈 log input
+        String result = studentService.registerStudent(studentRequestDto);
+        return ResponseEntity.ok(result);
+    }
 
+
+
+    // ==============================
+    // Get all courses from Course Service
+    // ==============================
+    @GetMapping("/All/courses")
+    public ResponseEntity<List<CourseResponseDto>> getAllCourses() {
         try {
-            String result = studentService.registerStudent(studentRequestDto);
-            logger.info("Registration successful: {}", result);
-            return ResponseEntity.ok(result);
+            List<CourseResponseDto> courses = (List<CourseResponseDto>) studentService.getAllCourses();
+            return ResponseEntity.ok(courses);
         } catch (Exception e) {
-            logger.error("Registration failed with error: ", e);
-            return ResponseEntity.internalServerError().body("Registration failed: " + e.getMessage());
+            return ResponseEntity.internalServerError().build();
         }
     }
+
+    // Add more endpoints here as needed
+
 }

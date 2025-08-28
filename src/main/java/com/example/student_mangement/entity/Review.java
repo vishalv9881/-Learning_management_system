@@ -7,24 +7,26 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Setter
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Student {
+public class Review {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String username;
-    private String studentName;
-    private String studentGender;
 
-    @Column(unique = true)
-    private String email;
+    private int rating;
 
-    private String password;
+    private String comment;
+
+    private Long studentId;
 
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "course_id")
+    private Course course;
 
-    // Getters & setters
+
 }
