@@ -1,0 +1,75 @@
+#server:
+#  port: 8081
+#
+#spring:
+#  application:
+#    name: API-GATEWAY
+#
+#  cloud:
+#    gateway:
+#      routes:
+#        # ==============================
+#        # Student Service
+#        # ==============================
+#        - id: student-service
+#          uri: lb://STUDENT-MANGEMENT
+#          predicates:
+#            - Path=/api/students/**, /api/auth/**
+#
+#
+#        # ==============================
+#        # Course Management Service
+#        # ==============================
+#        - id: course-management-service
+#          uri: lb://COURSE-MANAGEMENT-SYSTEM
+#          predicates:
+#            - Path=/api/courses/**, /api/lessons/**, /api/reviews/**
+#          filters:
+#            - StripPrefix=1
+#
+#        # ==============================
+#        # Subscription Service
+#        # ==============================
+#        - id: subscription-service
+#          uri: lb://SUBSCRIPTION-SYSTEM
+#          predicates:
+#            - Path=/api/subscriptions/**, /api/subscription-payments/**, /api/subscription-plans/**
+#          filters:
+#            - StripPrefix=1
+server:
+  port: 8081
+
+spring:
+  application:
+    name: API-GATEWAY
+
+  cloud:
+    gateway:
+      routes:
+        - id: student-service
+          uri: lb://STUDENT-MANAGEMENT
+          predicates:
+            - Path=/api/students/**, /api/auth/**
+          filters:
+            - StripPrefix=1
+
+        - id: course-service
+          uri: lb://COURSE-MANAGEMENT-SYSTEM
+          predicates:
+            - Path=/api/courses/**, /api/lessons/**, /api/reviews/**
+          filters:
+            - StripPrefix=1
+
+        - id: subscription-service
+          uri: lb://SUBSCRIPTION-SYSTEM
+          predicates:
+            - Path=/api/subscriptions/**, /api/subscription-payments/**, /api/subscription-plans/**
+          filters:
+            - StripPrefix=1
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: https://eureka-server.onrender.com/eureka/
