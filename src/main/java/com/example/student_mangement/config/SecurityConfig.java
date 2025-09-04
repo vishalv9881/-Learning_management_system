@@ -69,7 +69,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()  // login
                         .requestMatchers("/api/users/register").permitAll() // registration
-                        .requestMatchers(HttpMethod.GET, "/api/users").hasRole("ADMIN") // only admin can fetch all users
+                        .requestMatchers(HttpMethod.GET, "/api/users").permitAll() // only admin can fetch all users
                         .requestMatchers(HttpMethod.GET, "/api/students/All/courses").hasAnyRole("STUDENT", "EDUCATOR")
                         .requestMatchers("/api/students/**").hasRole("STUDENT")
                         .requestMatchers("/api/educators/**").hasRole("EDUCATOR")
