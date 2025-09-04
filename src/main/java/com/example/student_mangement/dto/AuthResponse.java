@@ -1,19 +1,10 @@
 package com.example.student_mangement.dto;
 
+import lombok.*;
+
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
 public class AuthResponse {
     private String token;
     private String message;
-
-    public AuthResponse(String token, String message) {
-        this.token = token;
-        this.message = message;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public String getMessage() {
-        return message;
-    }
 }
